@@ -1,0 +1,45 @@
+:root {
+  --teal: #00a19d;
+  --yellow: #fff8e5;
+  --orange: #ffb344;
+  --red: #e05d5d;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to right, var(--red), var(--orange));
+}
+
+body h2 {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 4rem;
+  background-color: darkkhaki;
+  border-radius: 1rem;
+}
+
+#icon {
+  width: 180px;
+}
+
+#current {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: white;
+}
+
+#temp {
+  font-size: 2rem;
+}
+
+#weatherforecast {
+  display: flex;
+}
+
+#dailyWeather {
+  margin-bottom: 15px;
+}

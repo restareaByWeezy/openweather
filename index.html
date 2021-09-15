@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Weather</title>
+</head>
+<body>
+    <div >
+        <h2>Current Weather in Tokyo, Japan</h2>
+        <!-- current weather -->
+        <div id="weathernow">
+            <div >
+                <img id="icon">
+            </div>
+            <div id="weather-info">
+                <div id="current">Current: <h1  id="temp"></h1></div>
+                <strong id="weather"></strong><br>
+                Min: <span id="min"></span>°C, 
+                Max: <span id="max"></span>°C<br> 
+                Wind: <span id="wind"></span>m/s
+            </div>
+        </div> 
+        <hr>
+        <div style="font-size: 2rem; font-weight: bolder; color: darkred;
+        margin-top: 10px;">Daily Weather</div>
+        <!-- Daily weather forecast -->
+        <div id="weatherforecast">
+            <ul id="dailyWeather">
+                <div id=day1>
+                    <img id="icon1">
+                    <div id="temp1"></div>
+                    <span id="min1"></span>
+                    <span id="max1"></span>
+                    <div id="description1"></div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <script src="./app.js"></script>
+</body>
+</html>
