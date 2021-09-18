@@ -38,6 +38,9 @@ body h2 {
 
 #weatherforecast {
   display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 1rem;
 }
 
 #dailyWeather {

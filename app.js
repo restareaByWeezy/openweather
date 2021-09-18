@@ -5,13 +5,12 @@ const maxElement = document.querySelector('#max');
 const windElement = document.querySelector('#wind');
 const weatherElement = document.querySelector('#weather');
 const iconElement = document.querySelector('#icon');
+const weatherforecastElement = document.querySelector('#weatherforecast');
 
-//forecast 쿼리셀렉
-const temp1Element = document.querySelector('#temp1');
-const min1Element = document.querySelector('#min1')
-const max1Element = document.querySelector('#max1')
-const description1Element = document.querySelector('#description1')
-const icon1Element = document.querySelector('#icon1')
+//섭씨변경
+function convertTemp (temp) {
+        return Math.ceil(temp - 273) + "°C"
+};
 
 axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=76209317c9b1d073e5818a21195ec832')
         .then(function(response) {
@@ -43,30 +42,52 @@ async function fetchDailyWeather () {
         )
         const dailyJson = await dailyResponse.json();
 
-        //필요한 데이터 변수 저장
-        const dt1 = dailyJson.daily[1]
-        const temp1 = Math.ceil(dailyJson.daily[1].temp.day -273) + "°C";
-        const min1 = Math.ceil(dailyJson.daily[1].temp.min -273) + "°C";
-        const max1 = Math.ceil(dailyJson.daily[1].temp.max -273) + "°C";
-        const description1 = dailyJson.daily[1].weather[0].description;
-        const icon1 = dailyJson.daily[1].weather[0].icon;
-        const icon1_url = `http://openweathermap.org/img/wn/${icon1}@2x.png`;
+        //7일간의 날씨 데이터 생성
+        for (let i = 1; i< 8; i++){
         
+        //변수 지정
+        const day = dailyJson.daily[i]
+
+        const dailyTemp = convertTemp(day.temp.day);
+        const dailyMin = convertTemp(day.temp.min);
+        const dailyMax = convertTemp(day.temp.max);
+        const dailyDescription = day.weather[0].description;
+        const dailyIcon = day.weather[0].icon;
+        const dailyIcon_url = `http://openweathermap.org/img/wn/${dailyIcon}@2x.png`;
+
+
+        //요소 만들기
+        const divElement = document.createElement('div');
+        const descriptionElement = document.createElement('div');
+        const dailyTempElement = document.createElement('div');
+        const dailyMinElement = document.createElement('div');
+        const dailyMaxElement = document.createElement('div');
+        const iconElement = document.createElement('img');
+
+
+        //텍스트 넣기
+        descriptionElement.innerText = dailyDescription;
+        dailyTempElement.innerText = dailyTemp;
+        dailyMinElement.innerText = "Min: " + dailyMin;
+        dailyMaxElement.innerText = "Max: " + dailyMax;
+        iconElement.setAttribute('src', dailyIcon_url);
+
+        console.log(weatherforecastElement);
         
-        try {
-                console.log(temp1, min1, max1, description1, icon1);
-                temp1Element.innerText = "Temp: "+ temp1
-                min1Element.innerText = "Min: " + min1
-                max1Element.innerText = "Max: " + max1
-                description1Element.innerText = description1
-                
+        divElement.className = 'daily'
+        
+        //appenchild로 붙혀주기
+        divElement.appendChild(iconElement);
+        divElement.appendChild(dailyTempElement);
+        divElement.appendChild(dailyMinElement);
+        divElement.appendChild(dailyMaxElement);
+        divElement.appendChild(descriptionElement);
+        weatherforecastElement.appendChild(divElement);
+}
+        
                 console.log(dailyJson)
-                icon1.setAttribute('src', icon1_url);
+
                 
-        }
-        catch(e){
-                console.log(error);
-        }
 }
 
 fetchDailyWeather()
@@ -83,19 +104,7 @@ fetchDailyWeather()
 //           "/"+date.getFullYear());
 
 
-// //for문 작성 후 try안에 넣을 예정
-for (let i = 1; i< 8; i++){
-        //for문 내부에 변수 설정
 
-        const day = dailyJson.daily[i]
-        const dailyTemp = Math.ceil(day.temp.day -273) + "°C";
-        const dailyMin = Math.ceil(day.temp.min -273) + "°C";
-        const dailyMax = Math.ceil(day.temp.max -273) + "°C";
-        const dailyDescription = day.weather[0].description;
-        const dailyIcon = day.weather[0].icon;
-        const dailyIcon_url = `http://openweathermap.org/img/wn/${dailyIcon}@2x.png`;
-
-        
-}
 // 구현하지 못한 것: 반복문으로 +7일까지의 날씨를 화면에 띄워보기
 // createElement이용, 레이아웃은 html
+
