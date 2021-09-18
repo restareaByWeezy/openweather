@@ -41,6 +41,8 @@ body h2 {
   justify-content: space-between;
   text-align: center;
   margin: 1rem;
+  color: darkslategrey;
+  font-weight: bold;
 }
 
 #dailyWeather {

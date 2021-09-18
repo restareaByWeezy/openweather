@@ -7,10 +7,18 @@ const weatherElement = document.querySelector('#weather');
 const iconElement = document.querySelector('#icon');
 const weatherforecastElement = document.querySelector('#weatherforecast');
 
-//섭씨변경
+//함수
 function convertTemp (temp) {
         return Math.ceil(temp - 273) + "°C"
 };
+function getDate(d){
+        const week = ['sun', 'mon', 'tue', 'wen', 'thu', 'fri', 'sat'];
+        const dayOfWeek = week[new Date(d).getDay()];
+
+        return dayOfWeek;
+}
+
+
 
 axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=76209317c9b1d073e5818a21195ec832')
         .then(function(response) {
@@ -26,7 +34,6 @@ axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=7620931
           minElement.innerText = Math.ceil(main.temp_min -273)
           maxElement.innerText = Math.ceil(main.temp_max -273)
           windElement.innerText = wind.speed;
-
           weather.innerText = weather[0].description;
 
           icon.setAttribute('src', icon_url);
@@ -54,7 +61,13 @@ async function fetchDailyWeather () {
         const dailyDescription = day.weather[0].description;
         const dailyIcon = day.weather[0].icon;
         const dailyIcon_url = `http://openweathermap.org/img/wn/${dailyIcon}@2x.png`;
-
+        
+        const timestamp = day.dt;
+        const date = new Date(timestamp*1000);
+        const days = date.getDate();
+        const month = (date.getMonth()+1);
+        const dailyTempDate = month + "/" + days
+        const dotw = getDate(date);
 
         //요소 만들기
         const divElement = document.createElement('div');
@@ -63,9 +76,11 @@ async function fetchDailyWeather () {
         const dailyMinElement = document.createElement('div');
         const dailyMaxElement = document.createElement('div');
         const iconElement = document.createElement('img');
+        const dateElement = document.createElement('div');
 
 
         //텍스트 넣기
+        dateElement.innerText = dailyTempDate + " " + dotw;
         descriptionElement.innerText = dailyDescription;
         dailyTempElement.innerText = dailyTemp;
         dailyMinElement.innerText = "Min: " + dailyMin;
@@ -77,6 +92,7 @@ async function fetchDailyWeather () {
         divElement.className = 'daily'
         
         //appenchild로 붙혀주기
+        divElement.appendChild(dateElement);
         divElement.appendChild(iconElement);
         divElement.appendChild(dailyTempElement);
         divElement.appendChild(dailyMinElement);
@@ -91,20 +107,4 @@ async function fetchDailyWeather () {
 }
 
 fetchDailyWeather()
-
-
-// 시간 변환
-// var unixTimestamp = 1631671200
-// var date = new Date(unixTimestamp*1000);
-// console.log("Unix Timestamp:",unixTimestamp)
-// console.log("Date Timestamp:",date.getTime())
-// console.log(date)
-// console.log("Date: "+date.getDate()+
-//           "/"+(date.getMonth()+1)+
-//           "/"+date.getFullYear());
-
-
-
-// 구현하지 못한 것: 반복문으로 +7일까지의 날씨를 화면에 띄워보기
-// createElement이용, 레이아웃은 html
 
