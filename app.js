@@ -27,8 +27,18 @@ axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=7620931
           // let windData = response.data.wind;
 
           const {main, weather, wind} = response.data;
+          const icon_num = weather[0].icon;
 
-          const icon_url = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
+          //로컬스토리지 현재 날씨 정보 저징
+          localStorage.setItem("wind", wind.speed);
+          localStorage.setItem("temp", main.temp);
+          localStorage.setItem("temp_min", main.temp_min);
+          localStorage.setItem("temp_max", main.temp_max);
+          localStorage.setItem("icon_num", icon_num);
+
+
+          const icon_url = `http://openweathermap.org/img/wn/${icon_num}@2x.png`;
+      
 
           tempElement.innerText = Math.ceil(main.temp -273) + "°C";
           minElement.innerText = Math.ceil(main.temp_min -273)
@@ -40,6 +50,23 @@ axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=7620931
         })
         .catch(function(error) {
             console.log(error);
+            
+            //에러일 때 로컬스토리지 정보 불러오기 
+            const icon_num = localStorage.getItem("icon_num");
+            const temp = localStorage.getItem("temp");
+            const temp_min = localStorage.getItem("temp_min");
+            const temp_max = localStorage.getItem("temp_max");
+            const wind = localStorage.getItem("wind");
+
+            const icon_url = `http://openweathermap.org/img/wn/${icon_num}@2x.png`;
+            
+            tempElement.innerText = Math.ceil(temp -273) + "°C";
+            minElement.innerText = Math.ceil(temp_min -273)
+            maxElement.innerText = Math.ceil(temp_max -273)
+            windElement.innerText = wind;
+
+            icon.setAttribute('src', icon_url);
+          
         })
 
 //async 활용하여 주간 날씨 조회하기 
@@ -107,4 +134,3 @@ async function fetchDailyWeather () {
 }
 
 fetchDailyWeather()
-

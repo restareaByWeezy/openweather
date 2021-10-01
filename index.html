@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="kr">
-<head>
+<head
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +33,12 @@
         <!-- Daily weather forecast -->
         <div id="weatherforecast">
         </div>
+        <!-- Hour forecast -->
+        <div id="hourlyforecast">
+            <canvas id="line-chart" width="80vh" height="40vh"></canvas>
+        </div>        
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./app.js"></script>
 </body>
 </html>
