@@ -19,7 +19,15 @@ function getDate(d){
 }
 
 
+//팝업
 
+function open_win()
+{
+ window.open('popup.html','popup', 'width=300, height=200, left=50%, top=50%, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
+}
+
+
+//API CALL & CURRENT WEATHER
 axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=76209317c9b1d073e5818a21195ec832')
         .then(function(response) {
           // let main = response.data.main;
