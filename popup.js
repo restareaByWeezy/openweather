@@ -1,14 +1,13 @@
 const today = new Date();
-const saveDay = today.getDate();
+const todayUnix = today.setDate(today.getDate() + 0);
 const popupButton = document.querySelector('#popup-button')
 
-console.log(today);
 
 function popup_click() {
-        localStorage.setItem('today', today);
-       }    
-const localDate = localStorage.getItem('today')
+        localStorage.setItem('todayUnix', today);
+}    
 console.log(localStorage.getItem('today'));
+
 function popup_closed() {
     self.close();
 }
