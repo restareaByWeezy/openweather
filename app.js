@@ -20,21 +20,37 @@ function getDate(d){
 
 
 //팝업
-function open_win()
-{
- window.open('popup.html','popup', 'width=300, height=200, left=50%, top=50%, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
-}
 
-const today = localStorage.getItem('todayUnix');
+const tomorrowUnix = localStorage.getItem('tomorrowUnix');
 const now = new Date();
 const now_unix = now.setDate(now.getDate() + 0);
 console.log(now_unix);
-const now_plusone = now.setDate(now.getDate() + 1);
-console.log(now_plusone);
 
-if (now_unix > now_plusone) {
-        console.log("ello");
-} else console.log('bye')
+
+// const open_win = function()
+// {
+//  window.open('popup.html','popup', 'width=300, height=200, left=50%, top=50%, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
+// }
+
+// if (now_unix > tomorrowUnix) {
+//        return open_win();
+// } else if (tomorrowUnix == undefined) {
+//         return open_win();
+// } 왜 안되는지 설명 듣기!!
+
+function callPopup(){
+        const open_win = function()
+        {
+         window.open('popup.html','popup', 'width=300, height=200, left=50%, top=50%, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
+        }
+        
+        if (now_unix > tomorrowUnix) {
+               return open_win();
+        } else if (tomorrowUnix == undefined) {
+                return open_win();
+        }
+        }
+        callPopup();
 
 //API CALL & CURRENT WEATHER
 axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=76209317c9b1d073e5818a21195ec832')
